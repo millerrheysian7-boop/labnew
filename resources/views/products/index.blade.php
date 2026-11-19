@@ -8,6 +8,10 @@
         <a href="{{ route('products.create') }}" class="btn btn-primary">+ Add Product</a>
     </div>
 
+    @if (session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
+
     <form method="GET" action="{{ route('products.index') }}" class="row g-2 mb-3">
         <div class="col-md-4">
             <input type="text" name="search" class="form-control" placeholder="Search by name or SKU"
@@ -36,6 +40,7 @@
                     <th>Name</th>
                     <th>SKU</th>
                     <th>Category</th>
+                    <th>Brand</th>
                     <th>Qty</th>
                     <th>Unit Price</th>
                     <th>Status</th>
@@ -47,7 +52,8 @@
                     <tr class="transition-row">
                         <td>{{ $product->name }}</td>
                         <td>{{ $product->sku }}</td>
-                        <td>{{ $product->category }}</td>
+                        <td>{{ $product->category}}</td>
+                        <td>{{ $product->brand->name ?? '—' }}</td>
                         <td>{{ $product->quantity }}</td>
                         <td>${{ number_format($product->unit_price, 2) }}</td>
                         <td>
@@ -62,12 +68,6 @@
                         <td>
                             <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-outline-secondary">View</a>
                             <a href="{{ route('products.edit', $product) }}" class="btn btn-sm btn-outline-primary">Edit</a>
-                            <form method="POST" action="{{ route('products.destroy', $product) }}" class="d-inline"
-                                  onsubmit="return confirm('Delete this product?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
-                            </form>
                         </td>
                     </tr>
                 @empty

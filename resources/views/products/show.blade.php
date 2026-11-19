@@ -14,6 +14,9 @@
                 <dt class="col-sm-3">Category</dt>
                 <dd class="col-sm-9">{{ $product->category }}</dd>
 
+                <dt class="col-sm-3">Brand</dt>
+                <dd class="col-sm-9">{{ $product->brand->name ?? '—' }}</dd>
+
                 <dt class="col-sm-3">Description</dt>
                 <dd class="col-sm-9">{{ $product->description ?: '—' }}</dd>
 
@@ -28,9 +31,6 @@
 
                 <dt class="col-sm-3">Total Value</dt>
                 <dd class="col-sm-9">${{ number_format($product->totalValue(), 2) }}</dd>
-
-                <dt class="col-sm-3">Supplier</dt>
-                <dd class="col-sm-9">{{ $product->supplier ?: '—' }}</dd>
 
                 <dt class="col-sm-3">Status</dt>
                 <dd class="col-sm-9">

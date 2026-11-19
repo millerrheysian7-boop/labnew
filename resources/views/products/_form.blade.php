@@ -33,6 +33,19 @@
     @error('category') <div class="invalid-feedback">{{ $message }}</div> @enderror
 </div>
 
+<div class="mb-3">
+    <label class="form-label">Brand</label>
+    <select name="brand_id" class="form-select @error('brand_id') is-invalid @enderror">
+        <option value="">-- No Brand --</option>
+        @foreach ($brands as $brand)
+            <option value="{{ $brand->id }}" @selected(old('brand_id', $product->brand_id ?? '') == $brand->id)>
+                {{ $brand->name }}
+            </option>
+        @endforeach
+    </select>
+    @error('brand_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
+</div>
+
 <div class="row">
     <div class="col-md-4 mb-3">
         <label class="form-label">Quantity</label>
@@ -52,13 +65,6 @@
                value="{{ old('unit_price', $product->unit_price ?? 0) }}">
         @error('unit_price') <div class="invalid-feedback">{{ $message }}</div> @enderror
     </div>
-</div>
-
-<div class="mb-3">
-    <label class="form-label">Supplier</label>
-    <input type="text" name="supplier" class="form-control @error('supplier') is-invalid @enderror"
-           value="{{ old('supplier', $product->supplier ?? '') }}">
-    @error('supplier') <div class="invalid-feedback">{{ $message }}</div> @enderror
 </div>
 
 <button type="submit" class="btn btn-primary">Save Product</button>

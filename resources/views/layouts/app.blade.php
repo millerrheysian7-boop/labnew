@@ -17,7 +17,13 @@
             <div class="collapse navbar-collapse" id="navMenu">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('products.index') }}">Products</a></li>
+                    @if (in_array(auth()->user()->role, ['admin', 'staff'], true))
+                        <li class="nav-item"><a class="nav-link" href="{{ route('products.index') }}">Products</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('brands.index') }}">Brands</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('categories.index') }}">Categories</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">Users</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('trash.index') }}">Trash</a></li>
+                    @endif
                 </ul>
                 @auth
                 <form method="POST" action="{{ route('logout') }}">

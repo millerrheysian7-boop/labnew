@@ -70,3 +70,117 @@ body {
 .transition-row:hover {
     background-color: var(--brand-cream);
 }
+
+body.auth-body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, var(--brand-cream) 0%, #E4CBA6 100%);
+}
+.auth-wrapper {
+    width: 100%;
+    max-width: 420px;
+}
+.auth-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 2.25rem 2rem;
+    box-shadow: 0 10px 30px rgba(138, 95, 65, 0.22);
+    border-top: 6px solid var(--brand-brown);
+}
+.auth-brand {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+.auth-logo {
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 0.75rem;
+    border-radius: 50%;
+    background: var(--brand-brown);
+    color: #fff;
+    font-size: 1.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.auth-brand h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--brand-brown);
+    margin: 0;
+}
+.auth-brand p {
+    margin: 0.15rem 0 0;
+    color: #8c7a69;
+    font-size: 0.9rem;
+}
+.auth-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #3d2b1f;
+    margin-bottom: 0.25rem;
+}
+.auth-subtitle {
+    color: #7a6a5c;
+    font-size: 0.9rem;
+    margin-bottom: 1.25rem;
+}
+.auth-card .form-label {
+    font-weight: 600;
+    color: #3d2b1f;
+    font-size: 0.9rem;
+}
+.auth-card .input-group-text {
+    background: #F7EEDD;
+    color: var(--brand-brown);
+    border-color: #dccbb2;
+}
+.auth-card .form-control {
+    border-color: #dccbb2;
+    padding: 0.6rem 0.75rem;
+}
+.auth-card .form-control:focus {
+    border-color: var(--brand-brown);
+    box-shadow: 0 0 0 0.2rem rgba(138, 95, 65, 0.2);
+}
+.auth-card .btn-toggle {
+    background: #fff;
+    color: var(--brand-brown);
+    border: 1px solid #dccbb2;
+}
+.auth-card .form-check-input:checked {
+    background-color: var(--brand-brown);
+    border-color: var(--brand-brown);
+}
+.btn-auth {
+    background: var(--brand-brown);
+    border-color: var(--brand-brown);
+    color: #fff;
+    padding: 0.65rem;
+    font-weight: 600;
+    border-radius: 10px;
+}
+.btn-auth:hover,
+.btn-auth:focus {
+    background: #74503A;
+    border-color: #74503A;
+    color: #fff;
+}
+.auth-link {
+    color: var(--brand-brown);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+.auth-link:hover {
+    text-decoration: underline;
+    color: #74503A;
+}
+.auth-footer {
+    text-align: center;
+    color: #7a6a5c;
+    font-size: 0.8rem;
+    margin-top: 1rem;
+}

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\Brand;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
@@ -23,17 +25,18 @@ class ProductController extends Controller
             });
         }
 
-        $products = $query->orderBy('name')->paginate(10)->withQueryString();
-        $categories = ['Lumber', 'Hardware', 'Tools', 'Electrical', 'Plumbing', 'Paint'];
+        $products = $query->with('brand')->orderBy('name')->paginate(10)->withQueryString();
+        $categories = Category::orderBy('name')->pluck('name');
 
         return view('products.index', compact('products', 'categories'));
     }
 
     public function create()
     {
-        $categories = ['Lumber', 'Hardware', 'Tools', 'Electrical', 'Plumbing', 'Paint'];
+        $categories = Category::orderBy('name')->pluck('name');
+        $brands = Brand::orderBy('name')->get();
 
-        return view('products.create', compact('categories'));
+        return view('products.create', compact('categories', 'brands'));
     }
 
     public function store(Request $request)
@@ -49,13 +52,15 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         return view('products.show', compact('product'));
+        $product->load('brand');
     }
 
     public function edit(Product $product)
     {
-        $categories = ['Lumber', 'Hardware', 'Tools', 'Electrical', 'Plumbing', 'Paint'];
+        $categories = Category::orderBy('name')->pluck('name');
+        $brands = Brand::orderBy('name')->get();
 
-        return view('products.edit', compact('product', 'categories'));
+        return view('products.edit', compact('product', 'categories', 'brands'));
     }
 
     public function update(Request $request, Product $product)
@@ -73,7 +78,7 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('products.index')
-            ->with('success', 'Product deleted successfully.');
+            ->with('success', 'Product moved to trash.');
     }
 
     private function validateProduct(Request $request, $ignoreId = null): array
@@ -85,11 +90,11 @@ class ProductController extends Controller
                 'unique:products,sku' . ($ignoreId ? ",{$ignoreId}" : ''),
             ],
             'description' => ['nullable', 'string'],
-            'category' => ['required', 'in:Lumber,Hardware,Tools,Electrical,Plumbing,Paint'],
+            'category' => ['required', 'exists:categories,name'],
             'quantity' => ['required', 'integer', 'min:0'],
             'reorder_level' => ['required', 'integer', 'min:0'],
             'unit_price' => ['required', 'numeric', 'min:0'],
-            'supplier' => ['nullable', 'string', 'max:255'],
+            'brand_id' => ['nullable', 'exists:brands,id'],
         ], [
             'sku.unique' => 'This SKU is already in use by another product.',
             'quantity.min' => 'Quantity cannot be negative.',

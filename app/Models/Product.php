@@ -4,20 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name',
         'sku',
         'description',
         'category',
+        'brand_id',
         'quantity',
         'reorder_level',
         'unit_price',
-        'supplier',
     ];
 
     protected $casts = [
@@ -52,5 +53,10 @@ class Product extends Model
     public function totalValue(): float
     {
         return $this->quantity * $this->unit_price;
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
     }
 }
